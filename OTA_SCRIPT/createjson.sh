@@ -21,18 +21,55 @@ dt="" #https link (leave blank if unused)
 commondt="" #https link (leave blank if unused)
 kernel="" #https link (leave blank if unused)
 
-echo CherishOS OTA Script, for 3.8 version.
-echo Loading OTA Script using $device configuration...
+# Logo
 
-#don't modify from here
+bold=$(tput bold)
+normal=$(tput sgr0)
+
+echo
+echo -------------------------------------------------------------------------------------------------------------------------------------
+echo    "                                                                                                                                    |  " 
+echo -e "\e[35m    IIIIII\  II\   II\ IIIIIIII\ IIIIIII\  IIIIII\  IIIIII\  II\   II\  IIIIII\   IIIIII\         IIIIII\  IIIIIIII\  IIIIII\   \e[0m    |  "
+echo -e "\e[35m   II  __II\ II |  II |II  _____|II  __II\ \_II  _|II  __II\ II |  II |II  __II\ II  __II\       II  __II\ \__II  __|II  __II\  \e[0m    |  "
+echo -e "\e[35m   II /  \__|II |  II |II |      II |  II |  II |  II /  \__|II |  II |II /  II |II /  \__|      II /  II |   II |   II /  II | \e[0m    |  "
+echo -e "\e[35m   II |      IIIIIIII |IIIII\    IIIIIII  |  II |  \IIIIII\  IIIIIIII |II |  II |\IIIIII\        II |  II |   II |   IIIIIIII | \e[0m    |  "
+echo -e "\e[35m   II |      II  __II |II  __|   II  __II\   II |   \____II\ II  __II |II |  II | \____II\       II |  II |   II |   II  __II | \e[0m    |  "
+echo -e "\e[35m   II |  II\ II |  II |II |      II |  II |  II |  II\   II |II |  II |II |  II |II\   II |      II |  II |   II |   II |  II | \e[0m    |  "
+echo -e "\e[35m   \IIIIII  |II |  II |IIIIIIII\ II |  II |IIIIII\ \IIIIII  |II |  II | IIIIII  |\IIIIII  |       IIIIII  |   II |   II |  II | \e[0m    |  "
+echo -e "\e[35m    \______/ \__|  \__|\________|\__|  \__|\______| \______/ \__|  \__| \______/  \______/        \______/    \__|   \__|  \__| \e[0m    |  "
+echo    "                                                                                                                                    |  "                         
+echo -e "   \e[35mCherishOS 3.8 OTA Script.\e[0m                                                                                                        |  "
+echo    "                                                                                                                                    |  "
+echo -------------------------------------------------------------------------------------------------------------------------------------
+echo 
+echo Device loaded! Welcome $maintainer.
+echo Device Name: $devicename, codenamed \'$device\'.
+echo Maintainer Telegram: $telegram
+echo Donation Link: $paypal
+echo
+
+# Stop the process to continue it.
+
+echo "Press any key to continue OTA's script process."
+read -n 1 -r -s -p $"Press CTRL+C if you want to stop the process." 
+echo
+echo
+
+# Don't modify from there.
 script_path="`dirname \"$0\"`"
 env_path="./"
 zip_name=$env_path/out/target/product/$device/$zip
 buildprop=$env_path/out/target/product/$device/system/build.prop
 
-if [ -f $script_path/$device.json ]; then
-  rm $script_path/$device.json
+sleep 2
+echo ✅ ${bold}Initialized system/build.prop 
+
+if [ -f cherishOTA/DEVICES/$device.json ]; then
+  sleep 1
+  echo "📚 An old OTA Scheme for this device has been detected and deleted."
+  rm cherishOTA/DEVICES/$device.json
 fi
+
 
 linenr=`grep -n "ro.system.build.date.utc" $buildprop | cut -d':' -f1`
 timestamp=`sed -n $linenr'p' < $buildprop | cut -d'=' -f2`
@@ -70,5 +107,8 @@ echo '{
         "kernel": "'$kernel'"
     }
   ]
-}' >> cherishOTA/$device.json
-echo $device OTA scheme has been created in \"cherishOTA/\" as a JSON file.
+}' >> cherishOTA/DEVICES/$device.json
+echo
+echo Done! Push that up and make your PR Request!
+echo This build was compiled on `date -d "@$timestamp"`.
+echo $device OTA scheme has been created in \"cherishOTA/DEVICES/\" as a JSON file.
