@@ -1,3 +1,10 @@
+Xiaomi Mi 11 | Changelog (29th of June 2022 Build)
+
+Clear Speaker feature bringup.
+CherishOS OTA Updater add up.
+
+-----------------------------------------------------------------------------------------------------------------
+
 Xiaomi Mi 11 | Changelog (27th of June 2022 Build)
 
 - Etude kernel: Op.12 Op.2 bringup :
@@ -40,3 +47,12 @@ lz4’s compression ratio is slightly less than lzo-rle, but Mi 11’s 8GB/12GB 
 
 
 Most changes made to this CherishOS build wouldn't have been possible without jjpprrrr's work! 
+
+-----------------------------------------------------------------------------------------------------------------
+
+Xiaomi Mi 11 | Changelog (19th of June 2022 Build)
+
+Initial Official Release.
+Removed 90hz toggle. (caused color shifting issues)
+Declared Wi-Fi 6ghz support.
+DT Cleanup and Stability Improvements.
